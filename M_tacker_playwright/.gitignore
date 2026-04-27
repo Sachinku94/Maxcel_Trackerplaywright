@@ -1,0 +1,45 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+venv/
+env/
+ENV/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Playwright
+.auth/
+test-results/
+playwright-report/
+videos/
+
+# Logs
+logfile.log
+logfile*.log
+.pytest_cache/
+
+# Allure
+allure-results/
+allure-report/
+
+# Environment variables
+.env
+.env.local
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Data files
+*.xlsx
+*.xls
+*.csv
