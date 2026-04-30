@@ -1,5 +1,5 @@
 import pytest
-from M_tacker_playwright.tests.Smoke_tests.utilities.base_class import BaseClass
+from tests.Smoke_tests.utilities.base_class import BaseClass
 
 @pytest.mark.Smoke_tests
 @pytest.mark.dashboard

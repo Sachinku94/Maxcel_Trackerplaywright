@@ -1,7 +1,7 @@
 import json
 import pytest
 from playwright.async_api import async_playwright, Page, Browser, BrowserContext
-from M_tacker_playwright.Config.config_reader import read_config
+from Config.config_reader import read_config
 from dotenv import load_dotenv
 import os
 import logging

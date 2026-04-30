@@ -183,8 +183,8 @@ pytest M_tacker_playwright/tests/ -s
 
 ```python
 import pytest
-from M_tacker_playwright.tests.Smoke_tests.utilities.base_class import BaseClass
-from M_tacker_playwright.tests.Smoke_tests.Pages.homepage import HomePage
+from tests.Smoke_tests.utilities.base_class import BaseClass
+from tests.Smoke_tests.Pages.homepage import HomePage
 
 @pytest.mark.Smoke_tests
 class TestNewFeature(BaseClass):

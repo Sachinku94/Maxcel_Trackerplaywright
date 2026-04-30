@@ -1,5 +1,5 @@
-from M_tacker_playwright.tests.Smoke_tests.utilities.base_class import BaseClass
-from M_tacker_playwright.Config.config_reader import read_config
+from tests.Smoke_tests.utilities.base_class import BaseClass
+from Config.config_reader import read_config
 from playwright.async_api import Page
 
 class HomePage(BaseClass):
