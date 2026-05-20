@@ -42,3 +42,33 @@ class TestAppsAndWebsites(BaseClass):
             log.info("✓ Apps table is visible")
         except Exception as e:
             log.warning(f"Table visibility warning: {str(e)}")
+
+
+
+    @pytest.mark.asyncio
+    async def test_appclendar(self):
+        """Test apps calendar filter options are visible and clickable"""
+        log = self.getLogger()
+        home_page = HomePage(self.page)
+
+        log.info("Testing apps calendar filter options")
+        apps_page = await home_page.get_apps_and_websites_page()
+        await self.page.goto(apps_page)
+        await self.page.wait_for_timeout(5000)
+        cel= self.page.locator("//input[@placeholder='Select Date']")
+        is_visible = await cel.is_visible()
+        assert is_visible
+        log.info("✓ Apps calendar is visible") 
+        await cel.click()
+        filter_days= self.page.locator("//div[@class='flex flex-col lg:flex-row py-2']/div/ul/li")
+        filter_days_count = await filter_days.count()
+        log.info(f"✓ Found {filter_days_count} filter options in calendar")
+        filters_days = await filter_days.all()
+        for i in filters_days:
+            try:
+                await i.click()
+                log.info("✓ Calendar filter option clicked successfully")
+                await cel.click()  # Reopen calendar for next option
+            except Exception as e:
+                log.warning(f"Calendar filter click warning: {str(e)}")
+                await cel.click()  # Reopen calendar for next option    

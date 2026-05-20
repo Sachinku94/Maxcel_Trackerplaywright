@@ -53,60 +53,73 @@ class TestAI(BaseClass):
     @pytest.mark.asyncio
     async def test_searchaiuser(self):
         """Test AI content is visible"""
+        time.sleep(5)
         log = self.getLogger()
         home_page = HomePage(self.page)
         
-        
+        time.sleep(1)
         log.info("Testing AI content visibility")
         ai_page = await home_page.get_ai_page()
         await self.page.goto(ai_page)
         log.info("Testing AI user search functionality")
         
-        # await self.page.wait_for_timeout(5000)
-        # user_data=pd.read_excel("test_data/AI_summary_test_data.xlsx", sheet_name="Sheet1")
-        # count=len(user_data)
-        # log.info(f"Total number of users: {len(user_data)}")
-        # flat_data = []
-        # al_opt=[]
-        # search_user=self.page.locator(".css-19bb58m")
-        # search_users=await search_user.all()
-        # for _, row in user_data.iterrows():
-        #     flat_data.extend([row['Name'], row['Department']])
-            
-        # for user,value in zip(search_user, flat_data):
-        #     try:
-        #         await user.click()
-        #         options = await self.page.locator(".css-1n7v3ny-option").all()
-        #         for opt in options:
-        #             log.info(f"clicking on filter option {opt.text}")
-        #             if opt.text==row['Name'] or opt.text==row['Department']:
-        #                 opt.click()
-        #                 time.sleep(2)
-        #                 break
-        #             elif opt.text!=value:
-        #                 random_option=random.choice(options)
-        #                 random_option.click()
+        await self.page.wait_for_timeout(5000)
+        user_data=pd.read_excel("/Users/sachin/Desktop/qa_Automations/maxcelTracker_playwright/Maxcel_Trackerplaywright/M_tacker_playwright/tests/Smoke_tests/test_data/sample_1.xlsx")
+        count=len(user_data)
+        log.info(f"Total number of users: {len(user_data)}")
+        flat_data = []
+        al_opt=[]
+        search_user=self.page.locator(".css-19bb58m")
+        all_user=await search_user.all()
+        count_search_user= len(all_user)
+        log.info(f"Total number of search user fields: {count_search_user}")
+        time.sleep(2)
+        for _, row in user_data.iterrows():
+            flat_data.extend([row['Name'], row['Department']])
 
-        #                 time.sleep(2)
-        #                 break
-        #     except Exception as e:
-        #         log.info(f"Exception occurred: {e}")
-        #         time.sleep(2)
-        # cal=self.page.locator("//input[@placeholder='Select Date']")
-        # await cal.click()
-        # filter_days=self.page.locator("//div[@class='flex flex-col lg:flex-row py-2']/div/ul/li")
-        # filter_days_options=await filter_days.all()
-        # n=0
-        # for i in filter_days_options:
-        #     if n<5:
-        #         i.click()
-        #         time.sleep(2)
-        #         cal.click()
-        #         n+=1
-        # tembtn=self.page.locator(".themeBtn")
-        # await tembtn.click()
-        # time.sleep(2)
-        # tost=self.page.locator(".Toastify__toast-body>div:last-child")
-        # tost_text=await tost.text_content()
-        # log.info(f"Toast message: {tost_text}")
-        # assert tost_text=="Report generation started. You'll be notified by email once ready."
+        for user,value in zip(all_user, flat_data):
+            
+                await user.click()
+                time.sleep(5)
+                opti = self.page.locator(".css-fygc7l-option")
+                time.sleep(5)
+                options = await opti.all()
+                log.info(f"Total number of filter options: {len(options)}")
+                for opt in options:
+                    opt_text = await opt.text_content()
+                    log.info(f"Checking filter option: {opt_text}")
+
+                    if opt_text==row['Name'] or opt_text==row['Department']:
+                        opt.click()
+                        log.info(f"Clicked on filter option: {opt.text_content()}")
+                        time.sleep(2)
+                        break
+                    elif opt_text!=value:
+                        random_option=random.choice(options)
+                        await random_option.click()
+                        log.info(f"Clicked on random filter option: {random_option.text_content()}")
+
+                        time.sleep(2)
+                        break
+            
+                log.info(f"Exception occurred: ")
+                time.sleep(2)
+        cal=self.page.locator("//input[@placeholder='Select Date']")
+        await cal.click()
+        filter_days=self.page.locator("//div[@class='flex flex-col lg:flex-row py-2']/div/ul/li")
+        filter_days_options=await filter_days.all()
+        n=0
+        for i in filter_days_options:
+            if n<5:
+                i.click()
+                time.sleep(2)
+                cal.click()
+                n+=1
+        tembtn=self.page.locator(".themeBtn")
+        await tembtn.click()
+        time.sleep(2)
+        tost=self.page.locator(".Toastify__toast-body>div:last-child")
+        tost_text=await tost.text_content()
+        log.info(f"Toast message: {tost_text}")
+        assert tost_text=="Report generation started. You'll be notified by email once ready."
+        log.info("✓ AI user search functionality tested successfully")
